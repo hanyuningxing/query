@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE decorators>
+<decorators defaultdir="/decorators">
+	<excludes>
+		<pattern>/40*.jsp</pattern>
+		<pattern>/adminLogin.jsp*</pattern>
+		<pattern>/css/**</pattern>
+		<pattern>/images/**</pattern>
+		<pattern>/js/**</pattern>
+		<pattern>/html/**</pattern>
+		<pattern>/index.html</pattern>
+		<pattern>/center*.html*</pattern>
+		<pattern>/center*.jsp*</pattern>
+		<pattern>/WEB-INF/content/ticket/create.jsp*</pattern>
+	</excludes>
+
+	<decorator name="ticket" page="ticket.ftl"/>
+	<decorator name="doc" page="doc.ftl"/>
+</decorators>

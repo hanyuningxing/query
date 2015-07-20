@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+
+	<diskStore path="java.io.tmpdir/miracle/application" />
+
+	<!-- DefaultCache setting. -->
+	<defaultCache maxElementsInMemory="500"
+		memoryStoreEvictionPolicy="LRU" diskPersistent="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="1800" overflowToDisk="true" />
+
+	<!-- Scheme QueryCache setting. -->
+	<cache name="USER_CACHE" maxElementsInMemory="20"
+		eternal="false" timeToLiveSeconds="5" overflowToDisk="true" />
+
+</ehcache>
