@@ -239,7 +239,7 @@ public class DocController extends BaseController {
     @RequestMapping(value="/test/action")  
     @ResponseBody  
     public Object action() throws UnsupportedEncodingException{
-    	String reUrl = Config.config.getProperty("ticket.interface", "http://192.168.1.234:8080/lottery/ticket");//"http://221.228.231.83:18122/ticket";
+    	String reUrl = Config.config.getProperty("ticket.interface", "http://localhost/ticket");//"http://221.228.231.83:18122/ticket";
     	HashMap<String, String> map = Maps.newHashMap();
     	String wAction = SpringUtils.getParameter("wAction");
     	if(SpringUtils.isBlank(wAction)){
@@ -248,8 +248,10 @@ public class DocController extends BaseController {
     	}
     	String wParam = SpringUtils.getParameter("wParam");
     	if(SpringUtils.isBlank(wParam)){
-    		map.put("msg", "请输入wParam");
-        	return map;
+    		if(!"106".equals(wAction)){
+    			map.put("msg", "请输入wParam");
+            	return map;
+    		}
     	}
     	String wAgent = SpringUtils.getParameter("wAgent");
     	if(SpringUtils.isBlank(wAgent)){

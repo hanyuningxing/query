@@ -89,7 +89,7 @@ public enum Lottery {
 	
 
 	/** DCZC */
-	DCZC(DczcConstant.KEY, "北京单场", "BDC", LotteryCategory.DCZC,DczcPlayType.values(),DczcPassType.values(),DczcSchemeType.getTicketDczcSchemeTypeItem(),"	{\"items\":[{\"lineId\":\"019\",\"value \":3},{\"lineId\":\"021\",\"value \":1}]}"),//7
+	DCZC(DczcConstant.KEY, "北京单场", "BDC", LotteryCategory.DCZC,DczcPlayType.values(),DczcPassType.values(),DczcSchemeType.getTicketDczcSchemeTypeItem(),"	{\"items\":[{\"lineId\":\"19\",\"value \":3^1^0},{\"lineId\":\"21\",\"value \":1}]}"),//7
 
 	
 	SEVEN(SevenConstant.KEY, "七乐彩", "QLC", LotteryCategory.NUMBER, SevenPlayType.values(),null,null,"01,02,03,04,05,06,07,08,09"),//8

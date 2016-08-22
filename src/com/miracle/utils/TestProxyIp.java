@@ -5,8 +5,8 @@ import java.net.URLConnection;
 public class TestProxyIp {
       public static void main(String args[]){
 
-        System.getProperties().setProperty("proxySet", "true"); //如果不设置，只要代理IP和代理端口正确,此项不设置也可以
-        System.getProperties().setProperty("http.proxyHost", "183.62.172.50");
+        System.getProperties().setProperty("proxySet", "true"); //如果不设置，只要代理IP和代理端口正确,此项不设置也可以http://tieba.baidu.com/p/1064234714
+        System.getProperties().setProperty("http.proxyHost", "61.185.219.235");
         System.getProperties().setProperty("http.proxyPort", "80");
         System.out.println(getHtml("http://www.baidu.com"));  //判断代理是否设置成功
       }

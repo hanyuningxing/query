@@ -243,6 +243,7 @@ public enum DczcPassType implements PassTypeItem {
 	 */
 	public boolean isForMultipleMode() {
 		return this.passMatchs.length == 1;
+//		return this.passMatchs.length > 1; 暂时不能修改 更新中奖不支持多选过关
 	}
 
 	// =========================================================================

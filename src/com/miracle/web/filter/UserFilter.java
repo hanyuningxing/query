@@ -23,7 +23,7 @@ public class UserFilter implements Filter {
 	/**
 	 * 不需要登录即可访问的URL资源
 	 */
-	private static final String[] INHERENT_ESCAPE_URIS = { "/login", "/jcaptcha", "/images", "/styles", "/scripts" ,"/jquery"};
+	private static final String[] INHERENT_ESCAPE_URIS = { "/login", "/jcaptcha", "/images", "/styles", "/scripts" ,"/jquery","/chooseMatchs","/chooseMatchsHis","/chooseProjects","/chooseHotProjects","/chooseOMatchs"};
 
 	//"/favicon.ico" 
 

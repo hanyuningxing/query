@@ -108,8 +108,31 @@
                     <property name="maxUploadSize" value="1024000000"/>  
                     <property name="resolveLazily" value="true"/>  
                     <property name="maxInMemorySize" value="4096"/>  
-                </bean>  	
+                </bean>
+    
+    <task:scheduled-tasks scheduler="needFinishScheduler">
+		<!-- *(秒0-59) *(分钟0-59) *(小时0-23) *(日期1-31) *(月份1-12或是JAN-DEC) *(星期1-7或是SUN-SAT) -->
+		 
+		<!-- <task:scheduled ref="continueJobService" method="getPhoneInfo" cron="0 0/10 * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getGrepUserInfos" cron="0/5 * * * * ?" />
+		
+		<task:scheduled ref="grepUserInfoTask" method="getGrepProjectAwardInfos" cron="0/30 * * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getProjectAwardWeekInfos" cron="0/10 * * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getMatchScore" cron="0/10 * * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="chooseProjectsToBuy" cron="0/10 * * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getGrepProjectInfos" cron="0 0 12 * * ?" /> 
+		<task:scheduled ref="grepUserInfoTask" method="getHotUserProjectInfos" cron="0 0/30 * * * ?" /> 
+		<task:scheduled ref="grepUserInfoTask" method="getWeekUserInfos" cron="0 30 * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getRealMatchChooses" cron="0 0/30 * * * ?" />
+		-->
+		<task:scheduled ref="grepUserInfoTask" method="getRealMatchChooses" cron="0/10 * * * * ?" />
+		
+	</task:scheduled-tasks>
+	
+	<task:scheduler id="needFinishScheduler" pool-size="1" />  	
+	
     <import resource="classpath*:mongo-config.xml"/>
+    
  	 
 </beans>  
     
