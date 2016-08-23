@@ -327,7 +327,7 @@ public class GrepUserInfoTask {
 	}
 	
 	public void getRealMatchChooses(){
-		System.out.println(DateUtil.dateToStr(new Date())+"------getRealMatchChooses定时任务结束-------");
+		System.out.println(DateUtil.dateToStr(new Date())+"------getRealMatchChooses定时任务开始-------");
 //		String hql1 = " from GrepProjectInfo where  endTime >=? and endTime <? order by uid";
 //		Date startDate = DateUtil.strToDate(DateUtil.dateToStr(new Date(),"yyyy-MM-dd")+" 10:00:00");
 //		Date endDate = DateUtil.strToDate(DateUtil.dateToStr(DateUtil.calDate(new Date(),0,0,1),"yyyy-MM-dd")+" 10:00:00");
