@@ -20,7 +20,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 
 import com.miracle.model.user.GrepMatchInfo;
 import com.miracle.model.user.GrepProjectInfo;
@@ -106,6 +105,12 @@ public class GrepUserInfoTask {
 		String url = "http://mapi.159cai.com/phoneRecord.php?version=31&user=159ceshi&password=911d430ee303815d753125cc9a435e70&result=mob_canbuy&type=70&newValue=";
 		System.out.println(DateUtil.dateToStr(new Date())+"------grepProject定时任务开始-------");
 		List<GrepUserInfo> list = grepUserInfoService.findCanBuyUser();
+		List<GrepUserInfo> wonlist = grepUserInfoService.findCanBuyUserByParam("wonMoeny");
+		for (GrepUserInfo grepUserInfo : wonlist) {
+			if(!list.contains(grepUserInfo)){
+				list.add(grepUserInfo);
+			}
+		}
 		int num = 0;
 		for (GrepUserInfo grepUserInfo : list) {
 			System.out.println(DateUtil.dateToStr(new Date())+"------【"+grepUserInfo.getUid()+"】开始请求");

@@ -44,6 +44,17 @@ public class GrepUserInfoService {
 			}
 		});
 	}
+	@SuppressWarnings("unchecked")
+	public List<GrepUserInfo> findCanBuyUserByParam(final String param) {
+		return (List<GrepUserInfo>)grepUserInfo.execute(new CriteriaExecuteCallBack() {
+			public Object execute(Criteria criteria) {
+				criteria.add(Restrictions.gt("lastModifyTime", DateUtil.calDate(new Date(),0,0,-7)));
+				criteria.addOrder(Order.desc(param));
+				criteria.setMaxResults(50); 
+				return criteria.list();
+			}
+		});
+	}
 	
 	public List<GrepUserInfo> find(final String hql, final Object... values) {
 		return grepUserInfo.find(hql,values);
