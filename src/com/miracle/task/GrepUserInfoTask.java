@@ -332,9 +332,9 @@ public class GrepUserInfoTask {
 //		Date startDate = DateUtil.strToDate(DateUtil.dateToStr(new Date(),"yyyy-MM-dd")+" 10:00:00");
 //		Date endDate = DateUtil.strToDate(DateUtil.dateToStr(DateUtil.calDate(new Date(),0,0,1),"yyyy-MM-dd")+" 10:00:00");
 //		List<GrepProjectInfo> projectlist =grepProjectInfoService.find(hql1, new Object[]{startDate,endDate});
-		String hql1 = " from GrepProjectInfo where  endTime <? and flag =0 order by uid";
-		Date startDate = DateUtil.strToDate(DateUtil.dateToStr(new Date(),"yyyy-MM-dd")+" 10:00:00");
-		List<GrepProjectInfo> projectlist =grepProjectInfoService.find(hql1, new Object[]{startDate});
+		String hql1 = " from GrepProjectInfo where  flag =0 order by uid";
+//		Date startDate = DateUtil.strToDate(DateUtil.dateToStr(new Date(),"yyyy-MM-dd")+" 10:00:00");
+		List<GrepProjectInfo> projectlist =grepProjectInfoService.find(hql1, new Object[]{});
 		Map<String,List<String>> map = new HashMap<String, List<String>>();
 		
 		List<String> list = new ArrayList<String>();
