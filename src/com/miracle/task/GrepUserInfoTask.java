@@ -106,7 +106,13 @@ public class GrepUserInfoTask {
 		System.out.println(DateUtil.dateToStr(new Date())+"------grepProject定时任务开始-------");
 		List<GrepUserInfo> list = grepUserInfoService.findCanBuyUser();
 		List<GrepUserInfo> wonlist = grepUserInfoService.findCanBuyUserByParam("wonMoeny");
+		List<GrepUserInfo> weekWonlist = grepUserInfoService.findCanBuyUserByParam("weekWonNum");
 		for (GrepUserInfo grepUserInfo : wonlist) {
+			if(!list.contains(grepUserInfo)){
+				list.add(grepUserInfo);
+			}
+		}
+		for (GrepUserInfo grepUserInfo : weekWonlist) {
 			if(!list.contains(grepUserInfo)){
 				list.add(grepUserInfo);
 			}
