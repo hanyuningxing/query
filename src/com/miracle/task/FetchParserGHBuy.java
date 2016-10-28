@@ -5,10 +5,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.htmlparser.tags.TableColumn;
 import org.htmlparser.tags.TableRow;
 import org.htmlparser.tags.TableTag;
@@ -33,12 +36,26 @@ public class FetchParserGHBuy extends AbstractFetchParser {
 	}
 	
 	public void fetch(){
-		String html = HttpClientUtil.getRemoteSource(URL, CHARSET);
-		parser(html);
+		String html="";
+		try {
+			html = HttpClientUtil.Utf8HttpClientUtils(URL, null);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(!StringUtils.isEmpty(html)){
+			parser(html);
+		}else{
+			System.out.println("html is null");
+		}
+		
 	}
 	public void parser(String html) {
-//		File dir = new File(File.separator +"Infos");
-		File dir = new File("D://Infos");
+		File dir = new File(File.separator +"Infos");
+//		File dir = new File("D://Infos");
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
