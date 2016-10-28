@@ -87,7 +87,7 @@
 					<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
 					<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.EhCacheRegionFactory</prop>
 					<prop key="net.sf.ehcache.configurationResourceName">${hibernate.ehcache_config_file}</prop>
-					<prop key="hibernate.hbm2ddl.auto">update</prop>
+					<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
                 </props>  
             </property>  
         </bean>  
@@ -113,19 +113,22 @@
     <task:scheduled-tasks scheduler="needFinishScheduler">
 		<!-- *(秒0-59) *(分钟0-59) *(小时0-23) *(日期1-31) *(月份1-12或是JAN-DEC) *(星期1-7或是SUN-SAT) -->
 		 
-		<!-- <task:scheduled ref="continueJobService" method="getPhoneInfo" cron="0 0/10 * * * ?" />
-		<task:scheduled ref="grepUserInfoTask" method="getGrepUserInfos" cron="0/5 * * * * ?" />
-		
-		<task:scheduled ref="grepUserInfoTask" method="getGrepProjectAwardInfos" cron="0/30 * * * * ?" />
-		<task:scheduled ref="grepUserInfoTask" method="getProjectAwardWeekInfos" cron="0/10 * * * * ?" />
-		<task:scheduled ref="grepUserInfoTask" method="getMatchScore" cron="0/10 * * * * ?" />
-		<task:scheduled ref="grepUserInfoTask" method="chooseProjectsToBuy" cron="0/10 * * * * ?" />
-		<task:scheduled ref="grepUserInfoTask" method="getGrepProjectInfos" cron="0 0 12 * * ?" /> 
-		<task:scheduled ref="grepUserInfoTask" method="getHotUserProjectInfos" cron="0 0/30 * * * ?" /> 
-		<task:scheduled ref="grepUserInfoTask" method="getWeekUserInfos" cron="0 30 * * * ?" />
-		<task:scheduled ref="grepUserInfoTask" method="getRealMatchChooses" cron="0 0/30 * * * ?" />
+		<task:scheduled ref="continueJobService" method="getPhoneInfo" cron="0 0/30 * * * ?" />
+		<task:scheduled ref="continueJobService" method="getGhPhoneInfo" cron="0 0/50 * * * ?" />
+		<task:scheduled ref="continueJobService" method="getGhPhoneBuyerInfo" cron="0 0/20 * * * ?" />
+		<task:scheduled ref="continueJobService" method="getPhoneInfo128" cron="0 0/50 * * * ?" />
+		<!-- 
+		<task:scheduled ref="grepUserInfoTask" method="getGrepUserInfos" cron="0 0/50 * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getWeekUserInfos" cron="0 0/30 4,5 * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getGrepProjectInfos" cron="0 0/40 * * * ?" /> 
+		<task:scheduled ref="grepUserInfoTask" method="getGrepProjectAwardInfos" cron="0 0 0/5 * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getProjectAwardWeekInfos" cron="0 0/5 * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getMatchScore" cron="0 0/30 * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="chooseProjectsToBuy" cron="0 0/5 * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getHotUserProjectInfos" cron="0 0/40 * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getRealMatchChooses" cron="0 0/5 * * * ?" /> 
 		-->
-		<task:scheduled ref="grepUserInfoTask" method="getRealMatchChooses" cron="0/10 * * * * ?" />
+		<task:scheduled ref="grepUserInfoTask" method="getGrepProjectInfos" cron="0/30 * * * * ?" />
 		
 	</task:scheduled-tasks>
 	

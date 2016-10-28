@@ -733,7 +733,7 @@ public class GrepUserInfoTask {
 			hotlist = new ArrayList<GrepUserInfo>();
 		}
 		int fw = 10;
-		if(weeklist!=null&&porlist!=null){
+		if(weeklist!=null&&porlist!=null&&weeklist.size()>0&&porlist.size()>0){
 			if(weeklist.size()<10||porlist.size()<10){
 				fw = weeklist.size()> porlist.size()?porlist.size():weeklist.size();
 			}

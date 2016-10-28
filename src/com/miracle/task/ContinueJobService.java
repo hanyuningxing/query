@@ -44,8 +44,14 @@ public class ContinueJobService {
 		for (String game : games) {
 			PhoneInfo2(url2+game+"/topwon.js?"+new Date().getTime(),game);
 		}
-		
+		FetchParserGHBuy.getInstance().fetch();
 		System.out.println(DateUtil.dateToStr(new Date())+"------gh定时任务结束-------");
+	}
+	
+	public static void getGhPhoneBuyerInfo(){
+		System.out.println(DateUtil.dateToStr(new Date())+"------gh_buy定时任务开始-------");
+		FetchParserGHBuy.getInstance().fetch();
+		System.out.println(DateUtil.dateToStr(new Date())+"------gh_buy定时任务结束-------");
 	}
 	public static void getPhoneInfo128(){
 		System.out.println(DateUtil.dateToStr(new Date())+"------128定时任务开始-------");
@@ -267,6 +273,7 @@ public class ContinueJobService {
 	
 	public static void main(String[] args) {
 //		System.out.println(isQQ("28785685"));
-		PhoneInfo3("http://www.128cai.com/client/urlRequestServlet?action=topBonusLog&pageSize=20&d=1471528039875");
+//		PhoneInfo3("http://www.128cai.com/client/urlRequestServlet?action=topBonusLog&pageSize=20&d=1471528039875");
+		getGhPhoneInfo();
 	}
 }
