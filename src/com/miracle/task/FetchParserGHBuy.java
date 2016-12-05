@@ -19,7 +19,7 @@ import org.htmlparser.tags.TableTag;
 import com.miracle.utils.DateUtil;
 
 public class FetchParserGHBuy extends AbstractFetchParser {
-	private static final String URL="http://www.ghcai.cn/info/task!showuser.action";
+	private static final String URL="http://www.tao3c.com/info/task!showuser.action";
 	
 	private static final String CHARSET = "GBK";
 	
