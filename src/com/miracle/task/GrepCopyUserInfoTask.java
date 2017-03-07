@@ -410,77 +410,69 @@ public class GrepCopyUserInfoTask {
 		System.out.println(DateUtil.dateToStr(new Date())+"------chooseProjectsToBuy定时任务开始-------");
 		
 		List<GrepMatchInfo> hotMatchList = getHotMatchsToBuy();
-		
-		List<GrepUserInfo> hotlist = getHotUserToBuy();
-		
 		List<GrepProjectInfo> hotProjectlist =new ArrayList<GrepProjectInfo>();
-		
-		for (GrepUserInfo grepUserInfo : hotlist) {
-			String hql = " from GrepProjectInfo where uid =? and endTime >? ";
-			List<GrepProjectInfo> projectlist =grepProjectInfoService.find(hql, new Object[]{grepUserInfo.getUid(),DateUtil.calDate(new Date(),0,0,0,0,30,0)});
-			for (GrepProjectInfo grepProjectInfo : projectlist) {
-				//一注方案小于10才发起
-//				if(grepProjectInfo.getMoeny()/grepProjectInfo.getMultiple()<10){
-					String codes = grepProjectInfo.getCode();
-					System.out.println(codes);
-					//131105001>RSPF=3+JQS=1+CBF=1:0,131105002>SPF=3/1+RSPF=1/0+JQS=1
-					//将上例转化为SPF=3,SPF=1的集合与matchInfo中选择最多的对比，若满足是最多选择则表示可以投注
-					codes = codes.replaceAll("\\(.*?\\)", "");
-					
-					String[] cds = codes.split(";");
-					for (String code : cds) {
-						String[] contents = code.split("\\|");
-						String[] items = null;
-						if(contents[1].indexOf(",")>-1){
-							items = contents[1].split(",");
-						}else{
-							items = new String[]{contents[1]};
-						}
-						for (String item : items) {
-							String [] item_parts = item.split(">");
-							String matchId = item_parts[0];
-							for (GrepMatchInfo grepMatchInfo : hotMatchList) {
-								List<String> list = grepMatchInfo.getMaxValue();
-								if(grepMatchInfo.getMatchId().equals(matchId)){
-									String[] chooseItems = null;
-									if(item_parts[1].indexOf("+")>-1){
-										chooseItems =  item_parts[1].split("\\+");
+		String hql = " from GrepProjectInfo where endTime >? ";
+		List<GrepProjectInfo> projectlist =grepProjectInfoService.find(hql, new Object[]{DateUtil.calDate(new Date(),0,0,0,0,30,0)});
+		for (GrepProjectInfo grepProjectInfo : projectlist) {
+			//一注方案小于10才发起
+//			if(grepProjectInfo.getMoeny()/grepProjectInfo.getMultiple()<10){
+				String codes = grepProjectInfo.getCode();
+				System.out.println(codes);
+				//131105001>RSPF=3+JQS=1+CBF=1:0,131105002>SPF=3/1+RSPF=1/0+JQS=1
+				//将上例转化为SPF=3,SPF=1的集合与matchInfo中选择最多的对比，若满足是最多选择则表示可以投注
+				codes = codes.replaceAll("\\(.*?\\)", "");
+				String[] cds = codes.split(";");
+				for (String code : cds) {
+					String[] contents = code.split("\\|");
+					String[] items = null;
+					if(contents[1].indexOf(",")>-1){
+						items = contents[1].split(",");
+					}else{
+						items = new String[]{contents[1]};
+					}
+					for (String item : items) {
+						String [] item_parts = item.split(">");
+						String matchId = item_parts[0];
+						for (GrepMatchInfo grepMatchInfo : hotMatchList) {
+							List<String> list = grepMatchInfo.getMaxValue();
+							if(grepMatchInfo.getMatchId().equals(matchId)){
+								String[] chooseItems = null;
+								if(item_parts[1].indexOf("+")>-1){
+									chooseItems =  item_parts[1].split("\\+");
+								}else{
+									chooseItems =  new String[]{item_parts[1]};
+								}
+								String[] choose = null;
+								for (String chooses : chooseItems) {
+									String[] chs = chooses.split("=");
+									if(chs[1].indexOf("/")>-1){
+										String[] cs = chs[1].split("/");
+										//转化为SPF=3,SPF=1
+										choose = new String[cs.length];
+										for (int i = 0; i < cs.length; i++) {
+											choose[i] = chs[0]+"="+cs[i];
+										} 
 									}else{
-										chooseItems =  new String[]{item_parts[1]};
+										choose = new String[]{chooses};
 									}
-									String[] choose = null;
-									for (String chooses : chooseItems) {
-										String[] chs = chooses.split("=");
-										if(chs[1].indexOf("/")>-1){
-											String[] cs = chs[1].split("/");
-											//转化为SPF=3,SPF=1
-											choose = new String[cs.length];
-											for (int i = 0; i < cs.length; i++) {
-												choose[i] = chs[0]+"="+cs[i];
-											} 
-										}else{
-											choose = new String[]{chooses};
-										}
-										for (String cv : choose) {
-											for (String v : list) {
-												System.out.println("--------"+matchId+"-"+v);
-												if(cv.equals(v)){
-													if(!hotProjectlist.contains(grepProjectInfo)){
-														hotProjectlist.add(grepProjectInfo);
-														grepProjectInfo.setSend(true);
-													}
-													
+									for (String cv : choose) {
+										for (String v : list) {
+											System.out.println("--------"+matchId+"-"+v);
+											if(cv.equals(v)){
+												if(!hotProjectlist.contains(grepProjectInfo)){
+													hotProjectlist.add(grepProjectInfo);
+													grepProjectInfo.setSend(true);
 												}
+												
 											}
 										}
 									}
-									
 								}
 							}
 						}
 					}
-//				}
-			}
+				}
+//			}
 		}
 		
 		for (GrepProjectInfo projectInfo : hotProjectlist) {
@@ -489,43 +481,6 @@ public class GrepCopyUserInfoTask {
 		System.out.println(DateUtil.dateToStr(new Date())+"------chooseProjectsToBuy定时任务结束-------");
 	}
 	
-	
-	private List<GrepUserInfo> getHotUserToBuy(){
-		String hql1 = " from GrepUserInfo where proWonTime >? order by weekWonNum/weekNum desc,weekNum desc ";
-		String hql2 = " from GrepUserInfo where proWonTime >? order by proWonNum/proNum desc,proNum desc ";
-		String hql3 = " from GrepUserInfo where proWonTime >? and hotPerson = 1 order by weekWonNum/weekNum desc,weekNum desc ";
-		List<GrepUserInfo> weeklist =grepUserInfoService.find(hql1, new Object[]{DateUtil.calDate(new Date(),0,0,-7)});
-		List<GrepUserInfo> porlist =grepUserInfoService.find(hql2, new Object[]{DateUtil.calDate(new Date(),0,0,-7)});
-		List<GrepUserInfo> hotlist =grepUserInfoService.find(hql3, new Object[]{DateUtil.calDate(new Date(),0,0,-7)});
-		if(hotlist ==null){
-			hotlist = new ArrayList<GrepUserInfo>();
-		}
-		int fw = 10;
-		if(weeklist!=null&&porlist!=null&&weeklist.size()>0&&porlist.size()>0){
-			if(weeklist.size()<10||porlist.size()<10){
-				fw = weeklist.size()> porlist.size()?porlist.size():weeklist.size();
-			}
-			for (int i = 0; i < fw; i++) {
-				for (int j = 0; j < fw; j++) {
-					if(weeklist.get(i).getUid().equals(porlist.get(j).getUid())){
-						if(!hotlist.contains(weeklist.get(i))){
-							hotlist.add(weeklist.get(i));
-						}
-					}
-				}
-			}
-			if(!hotlist.contains(weeklist.get(0))){
-				hotlist.add(weeklist.get(0));
-			}
-			if(!hotlist.contains(porlist.get(0))){
-				hotlist.add(porlist.get(0));
-			}
-		}
-//		for (GrepUserInfo grepUserInfo : hotlist) {
-//			System.out.println(grepUserInfo.getUid());
-//		}
-		return hotlist;
-	}
 	
 	private List<GrepMatchInfo> getHotMatchsToBuy(){
 		String hql = " from GrepMatchInfo where homeScore is null and (spf3+spf1+spf0+rspf3+rspf1+rspf0)> 1 order by (spf3+spf1+spf0+rspf3+rspf1+rspf0) desc ";
