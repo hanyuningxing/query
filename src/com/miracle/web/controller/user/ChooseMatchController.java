@@ -109,7 +109,8 @@ public class ChooseMatchController extends BaseController {
 	
 	@RequestMapping("/chooseProjects")
 	public String showProjects(final ModelMap modelMap){
-		String hql = " from GrepProjectInfo where (send =1 or uid in (select uid from GrepUserInfo where hotPerson = 1)) and endTime >? order by endTime,uid  ";
+//		String hql = " from GrepProjectInfo where (send =1 or uid in (select uid from GrepUserInfo where hotPerson = 1)) and endTime >? order by endTime,uid  ";
+		String hql = " from GrepProjectInfo where endTime >? order by endTime,uid  ";
 		List<GrepProjectInfo> projectlist =grepProjectInfoService.find(hql, new Object[]{DateUtil.calDate(new Date(),0,0,0,0,30,0)});
 		
 		String hql2 = " from GrepUserInfo where hotPerson = 1";
