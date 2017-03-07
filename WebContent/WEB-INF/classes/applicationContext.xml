@@ -113,10 +113,10 @@
     <task:scheduled-tasks scheduler="needFinishScheduler">
 		<!-- *(秒0-59) *(分钟0-59) *(小时0-23) *(日期1-31) *(月份1-12或是JAN-DEC) *(星期1-7或是SUN-SAT) -->
 		 
-		<task:scheduled ref="continueJobService" method="getPhoneInfo" cron="0 0/30 * * * ?" />
+		<!--<task:scheduled ref="continueJobService" method="getPhoneInfo" cron="0 0/30 * * * ?" />
 		<task:scheduled ref="continueJobService" method="getGhPhoneInfo" cron="0 0/50 * * * ?" />
 		<task:scheduled ref="continueJobService" method="getGhPhoneBuyerInfo" cron="0 0/20 * * * ?" />
-		<task:scheduled ref="continueJobService" method="getPhoneInfo128" cron="0 0/50 * * * ?" />
+		<task:scheduled ref="continueJobService" method="getPhoneInfo128" cron="0 0/50 * * * ?" />-->
 		<!-- 
 		<task:scheduled ref="grepUserInfoTask" method="getGrepUserInfos" cron="0 0/50 * * * ?" />
 		<task:scheduled ref="grepUserInfoTask" method="getWeekUserInfos" cron="0 0/30 4,5 * * ?" />
@@ -128,7 +128,11 @@
 		<task:scheduled ref="grepUserInfoTask" method="getHotUserProjectInfos" cron="0 0/40 * * * ?" />
 		<task:scheduled ref="grepUserInfoTask" method="getRealMatchChooses" cron="0 0/5 * * * ?" /> 
 		-->
-		<task:scheduled ref="grepUserInfoTask" method="getGrepProjectInfos" cron="0/30 * * * * ?" />
+		<task:scheduled ref="grepCopyUserInfoTask" method="getGrepUserInfos" cron="0 0 0/2 * * ?" />
+		<task:scheduled ref="grepCopyUserInfoTask" method="getGrepProjectInfos" cron="0 0 0/1 * * ?" />
+		<task:scheduled ref="grepCopyUserInfoTask" method="getGrepProjectAwardInfos" cron="0 0 0/5 * * ?" />
+		<task:scheduled ref="grepCopyUserInfoTask" method="getMatchScore" cron="0 0/30 * * * ?" />
+		<task:scheduled ref="grepCopyUserInfoTask" method="chooseProjectsToBuy" cron="0 0/5 * * * ?" />
 		
 	</task:scheduled-tasks>
 	
