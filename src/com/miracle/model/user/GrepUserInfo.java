@@ -27,7 +27,7 @@ public class GrepUserInfo extends IdEntity {
 	private String uid;
 	/** 中奖金额 */
 	private double wonMoeny;
-	/** 中奖次数 */
+	/** 中奖次数 /或者表示连中*/
 	private Integer wonNum=0;
 	/** 版本号,用于实现乐观锁 */
 	private Integer version;
@@ -36,9 +36,9 @@ public class GrepUserInfo extends IdEntity {
 	/** 最后更新时间 */
 	private Date lastModifyTime;
 	
-	/** 方案次数 */
+	/** 方案次数、或者表示月 */
 	private Integer proNum=0;
-	/** 方案中奖次数 */
+	/** 方案中奖次数、或者表示月 */
 	private Integer proWonNum=0;
 	/** 方案中奖时间 */
 	private Date proWonTime;
