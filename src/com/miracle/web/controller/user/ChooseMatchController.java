@@ -113,12 +113,13 @@ public class ChooseMatchController extends BaseController {
 		String hql = " from GrepProjectInfo where endTime >? order by endTime,uid  ";
 		List<GrepProjectInfo> projectlist =grepProjectInfoService.find(hql, new Object[]{DateUtil.calDate(new Date(),0,0,0,0,30,0)});
 		
-		String hql2 = " from GrepUserInfo where hotPerson = 1";
+		String hql2 = " from GrepUserInfo where hotPerson = 1 or wonNum>1";
 		List<GrepUserInfo> userlist =grepUserInfoService.find(hql2, new Object[]{});
 		for (GrepProjectInfo grepProjectInfo : projectlist) {
 			for (GrepUserInfo grepUserInfo : userlist) {
 				if(grepUserInfo.getUid().equals(grepProjectInfo.getUid())){
-					grepProjectInfo.setHotPerson(true);
+					grepProjectInfo.setHotPerson(grepUserInfo.isHotPerson());
+					grepProjectInfo.setWonNum(grepUserInfo.getWonNum());
 				}
 			}
 		}
@@ -129,9 +130,9 @@ public class ChooseMatchController extends BaseController {
 	@RequestMapping("/chooseHotProjects")
 	public String showHotProjects(final ModelMap modelMap){
 		
-		String hql1 = " from GrepUserInfo where proWonTime >? order by weekWonNum/weekNum desc,weekNum desc ";
-		String hql2 = " from GrepUserInfo where proWonTime >? order by proWonNum/proNum desc,proNum desc ";
-		String hql3 = " from GrepUserInfo where proWonTime >? and hotPerson = 1 order by weekWonNum/weekNum desc,weekNum desc ";
+		String hql1 = " from GrepUserInfo where lastModifyTime >? and weekNum>0 order by weekWonNum/weekNum desc,weekNum desc ";
+		String hql2 = " from GrepUserInfo where lastModifyTime >? and proNum>0 order by proWonNum/proNum desc,proNum desc ";
+		String hql3 = " from GrepUserInfo where lastModifyTime >? and hotPerson = 1 and weekNum>0 order by weekWonNum/weekNum desc,weekNum desc ";
 		List<GrepUserInfo> weeklist =grepUserInfoService.find(hql1, new Object[]{DateUtil.calDate(new Date(),0,0,-7)});
 		List<GrepUserInfo> porlist =grepUserInfoService.find(hql2, new Object[]{DateUtil.calDate(new Date(),0,0,-7)});
 		List<GrepUserInfo> hotlist =grepUserInfoService.find(hql3, new Object[]{DateUtil.calDate(new Date(),0,0,-7)});
@@ -171,6 +172,7 @@ public class ChooseMatchController extends BaseController {
 			for (GrepUserInfo grepUserInfo : hotlist) {
 				if(grepUserInfo.getUid().equals(grepProjectInfo.getUid())){
 					grepProjectInfo.setHotPerson(grepUserInfo.isHotPerson());
+					grepProjectInfo.setWonNum(grepUserInfo.getWonNum());
 				}
 			}
 		}

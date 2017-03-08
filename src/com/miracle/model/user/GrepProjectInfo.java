@@ -50,6 +50,8 @@ public class GrepProjectInfo extends IdEntity  {
 	private String messages;
 	/** 是否中奖 */
 	private Integer wonFlag;
+	/** 连中数 */
+	private Integer wonNum;
 	/** 热门人 */
 	private boolean hotPerson;
 	/** 查询方案选择是否同步 */
@@ -175,6 +177,14 @@ public class GrepProjectInfo extends IdEntity  {
 
 	public void setWonFlag(Integer wonFlag) {
 		this.wonFlag = wonFlag;
+	}
+	@Transient
+	public Integer getWonNum() {
+		return wonNum;
+	}
+
+	public void setWonNum(Integer wonNum) {
+		this.wonNum = wonNum;
 	}
 
 	@Transient
