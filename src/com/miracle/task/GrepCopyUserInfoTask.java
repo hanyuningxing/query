@@ -118,6 +118,7 @@ public class GrepCopyUserInfoTask {
 		try{
 			String result = getInfosByUrl(url);
 			JSONArray jsonArray = JSONArray.fromObject(result);
+			int count =0;
 			for (Object filterObj : jsonArray) {
 				int lznum = JSONObject.fromObject(filterObj).getInt("lznum");
 				int allnum = JSONObject.fromObject(filterObj).getInt("allnum");
@@ -126,14 +127,18 @@ public class GrepCopyUserInfoTask {
 				if(JSONObject.fromObject(filterObj).has("ishot")){
 					ishot =JSONObject.fromObject(filterObj).getInt("ishot")==1?true:false;
 				}
-				BigDecimal b1 = new BigDecimal(allnum);
-				BigDecimal b2 = new BigDecimal(hitnum);
-				int hitRate = b2.divide(b1,2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).intValue();
+				int hitRate =0;
+				if(allnum>0){
+					BigDecimal b1 = new BigDecimal(allnum);
+					BigDecimal b2 = new BigDecimal(hitnum);
+					hitRate = b2.divide(b1,2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).intValue();
+				}
 				if((hitRate>80&&hitnum>4)||lznum>2||ishot){
 					saveProjectInfos(filterObj);
+					count++;
 				}
 			}
-			
+			System.out.println("共有方案"+count);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
