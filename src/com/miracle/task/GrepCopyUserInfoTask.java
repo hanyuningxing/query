@@ -2,6 +2,7 @@ package com.miracle.task;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -117,19 +118,31 @@ public class GrepCopyUserInfoTask {
 		try{
 			String result = getInfosByUrl(url);
 			JSONArray jsonArray = JSONArray.fromObject(result);
+			JSONArray filterArray = new JSONArray();
+			for (Object filterObj : jsonArray) {
+				int lznum = JSONObject.fromObject(filterObj).getInt("lznum");
+				int allnum = JSONObject.fromObject(filterObj).getInt("allnum");
+				int hitnum = JSONObject.fromObject(filterObj).getInt("hitnum");
+				boolean ishot =false;
+				if(JSONObject.fromObject(filterObj).has("ishot")){
+					ishot =JSONObject.fromObject(filterObj).getInt("ishot")==1?true:false;
+				}
+				BigDecimal b1 = new BigDecimal(allnum);
+				BigDecimal b2 = new BigDecimal(hitnum);
+				int hitRate = b2.divide(b1,2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).intValue();
+				if((hitRate>80&&hitnum>4)||lznum>2||ishot){
+					filterArray.add(filterObj);
+				}
+			}
 			int count=0;
-			for (Object object : jsonArray) {
+			for (Object object : filterArray) {
 				String uid = JSONObject.fromObject(object).getString("uid");
 				for (GrepUserInfo userInfo : userList) {
 					if(userInfo.getUid().equals(uid)){
 						saveProjectInfos(object);
 					}
 				}
-				if(count<=10){
-					saveProjectInfos(object);
-				}else{
-					return;
-				}
+				saveProjectInfos(object);
 				count++;
 			}
 			
@@ -417,7 +430,7 @@ public class GrepCopyUserInfoTask {
 			//一注方案小于10才发起
 //			if(grepProjectInfo.getMoeny()/grepProjectInfo.getMultiple()<10){
 				String codes = grepProjectInfo.getCode();
-				System.out.println(codes);
+//				System.out.println(codes);
 				//131105001>RSPF=3+JQS=1+CBF=1:0,131105002>SPF=3/1+RSPF=1/0+JQS=1
 				//将上例转化为SPF=3,SPF=1的集合与matchInfo中选择最多的对比，若满足是最多选择则表示可以投注
 				codes = codes.replaceAll("\\(.*?\\)", "");
@@ -457,7 +470,7 @@ public class GrepCopyUserInfoTask {
 									}
 									for (String cv : choose) {
 										for (String v : list) {
-											System.out.println("--------"+matchId+"-"+v);
+//											System.out.println("--------"+matchId+"-"+v);
 											if(cv.equals(v)){
 												if(!hotProjectlist.contains(grepProjectInfo)){
 													hotProjectlist.add(grepProjectInfo);
