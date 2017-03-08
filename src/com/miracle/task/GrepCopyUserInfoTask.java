@@ -99,7 +99,7 @@ public class GrepCopyUserInfoTask {
 					grepUser.setHotPerson(ishot);
 				}
 				grepUser.setLastModifyTime(new Date());
-				userList.add(grepUser);
+//				userList.add(grepUser);
 				grepUserInfoService.saveGrepUserInfo(grepUser);
 			}
 			
@@ -118,7 +118,6 @@ public class GrepCopyUserInfoTask {
 		try{
 			String result = getInfosByUrl(url);
 			JSONArray jsonArray = JSONArray.fromObject(result);
-			JSONArray filterArray = new JSONArray();
 			for (Object filterObj : jsonArray) {
 				int lznum = JSONObject.fromObject(filterObj).getInt("lznum");
 				int allnum = JSONObject.fromObject(filterObj).getInt("allnum");
@@ -131,19 +130,8 @@ public class GrepCopyUserInfoTask {
 				BigDecimal b2 = new BigDecimal(hitnum);
 				int hitRate = b2.divide(b1,2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).intValue();
 				if((hitRate>80&&hitnum>4)||lznum>2||ishot){
-					filterArray.add(filterObj);
+					saveProjectInfos(filterObj);
 				}
-			}
-			int count=0;
-			for (Object object : filterArray) {
-				String uid = JSONObject.fromObject(object).getString("uid");
-				for (GrepUserInfo userInfo : userList) {
-					if(userInfo.getUid().equals(uid)){
-						saveProjectInfos(object);
-					}
-				}
-				saveProjectInfos(object);
-				count++;
 			}
 			
 		}catch(Exception e){
