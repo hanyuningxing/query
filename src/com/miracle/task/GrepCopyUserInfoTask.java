@@ -186,6 +186,9 @@ public class GrepCopyUserInfoTask {
 		}
 		String url = "http://www.159cai.com/cpdata/guoguan/"+gid+"/"+pid+"/pass/"+planNo+".json";
 		String result = getInfosByUrl(url);
+		if(result==null||result.equals("")){
+			return;
+		}
 		JSONObject rows = JSONObject.fromObject(result).getJSONObject("rows");
 		JSONArray proArray = new JSONArray();
 		if(rows.get("row") instanceof JSONArray){
