@@ -275,7 +275,7 @@ public class GrepCopyUserInfoTask {
 	 */
 	private final void transCodes(String codes,String uid) {
 		//131105001>RSPF=3+JQS=1+CBF=1:0,131105002>SPF=3/1+RSPF=1/0+JQS=1
-		String[] contents = codes.split("\\|");
+		String[] contents = codes.replaceAll("\\(.*?\\)", "").split("\\|");
 		String[] items = null;
 		if(contents[1].indexOf(",")>-1){
 			items = contents[1].split(",");
