@@ -116,16 +116,16 @@ public class GrepCopyUserInfoTask {
 	 * 2 定时任务 获取方案
 	 */
 	public void getGrepProjectInfos(){
-		String url = "http://www.159cai.com/cpdata/copy/jczq_hot_List.json";
+		String url = "http://www.159cai.com/cpdata/copy/jczq_return_List.json";
 		System.out.println(DateUtil.dateToStr(new Date())+"------grepProject定时任务开始-------");
 		try{
 			String result = getInfosByUrl(url);
 			JSONArray jsonArray = JSONArray.fromObject(result);
 			int count =0;
 			for (Object filterObj : jsonArray) {
-				int lznum = JSONObject.fromObject(filterObj).getInt("lznum");
+				int lznum = JSONObject.fromObject(filterObj).getInt("lz");
 				int allnum = JSONObject.fromObject(filterObj).getInt("allnum");
-				int hitnum = JSONObject.fromObject(filterObj).getInt("hitnum");
+				int hitnum = JSONObject.fromObject(filterObj).getInt("hit_week");
 				boolean ishot =false;
 				if(JSONObject.fromObject(filterObj).has("ishot")){
 					ishot =JSONObject.fromObject(filterObj).getInt("ishot")==1?true:false;
@@ -154,9 +154,9 @@ public class GrepCopyUserInfoTask {
 		String planNo = gid_planNo[1];
 		String uid = JSONObject.fromObject(object).getString("uid");
 		String nickName = JSONObject.fromObject(object).getString("nickname");
-		String lznum = JSONObject.fromObject(object).getString("lznum");
+		String lznum = JSONObject.fromObject(object).getString("lz");
 		int allnum = JSONObject.fromObject(object).getInt("allnum");
-		int hitnum = JSONObject.fromObject(object).getInt("hitnum");
+		int hitnum = JSONObject.fromObject(object).getInt("hit_week");
 		boolean ishot =false;
 		if(JSONObject.fromObject(object).has("ishot")){
 			ishot =JSONObject.fromObject(object).getInt("ishot")==1?true:false;
