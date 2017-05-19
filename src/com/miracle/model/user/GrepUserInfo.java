@@ -25,6 +25,8 @@ public class GrepUserInfo extends IdEntity {
 	
 	/** 用户名 */
 	private String uid;
+	/** 昵称 */
+	private String nickName;
 	/** 中奖金额 */
 	private double wonMoeny;
 	/** 中奖次数 /或者表示连中*/
@@ -62,6 +64,15 @@ public class GrepUserInfo extends IdEntity {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
+	@Column
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
 	@Column(precision = 18, scale = 1, columnDefinition = "decimal(18,1) default '0'")
 	public double getWonMoeny() {
 		return wonMoeny;

@@ -56,6 +56,7 @@ public class GrepCopyUserInfoTask {
 			JSONArray jsonArray = JSONArray.fromObject(result);
 			for (Object object : jsonArray) {
 				String uid = JSONObject.fromObject(object).getString("uid");
+				String nickname = JSONObject.fromObject(object).getString("nickname");
 				int allnum = JSONObject.fromObject(object).getInt("allnum");
 				int hitnum = JSONObject.fromObject(object).getInt("hitnum");
 				boolean ishot =false;
@@ -80,9 +81,11 @@ public class GrepCopyUserInfoTask {
 						grepUser.setWonNum(JSONObject.fromObject(object).getInt("lznum"));
 					}
 					grepUser.setHotPerson(ishot);
+					grepUser.setNickName(nickname);
 				}else{
 					grepUser = new GrepUserInfo();
 					grepUser.setUid(uid);
+					grepUser.setNickName(nickname);
 					grepUser.setCreateTime(new Date());
 					if(type.equals("week")){
 						grepUser.setWeekNum(allnum);
@@ -150,6 +153,7 @@ public class GrepCopyUserInfoTask {
 		String gid =gid_planNo[0];
 		String planNo = gid_planNo[1];
 		String uid = JSONObject.fromObject(object).getString("uid");
+		String nickName = JSONObject.fromObject(object).getString("nickname");
 		String lznum = JSONObject.fromObject(object).getString("lznum");
 		int allnum = JSONObject.fromObject(object).getInt("allnum");
 		int hitnum = JSONObject.fromObject(object).getInt("hitnum");
@@ -172,6 +176,7 @@ public class GrepCopyUserInfoTask {
 			grepUser.setWeekWonNum(hitnum);
 			grepUser.setHotPerson(ishot);
 		}
+		grepUser.setNickName(nickName);
 		grepUser.setLastModifyTime(new Date());
 		grepUserInfoService.saveGrepUserInfo(grepUser);
 		String codes = ""; 
@@ -219,6 +224,7 @@ public class GrepCopyUserInfoTask {
 		grepProjectInfo.setMoeny(Double.valueOf(money));
 		grepProjectInfo.setMultiple(mulity);
 		grepProjectInfo.setUid(uid);
+		grepProjectInfo.setNickName(nickName);
 		grepProjectInfo.setProjectId(planNo);
 		grepProjectInfoService.saveGrepProjectInfo(grepProjectInfo);
 		try {
