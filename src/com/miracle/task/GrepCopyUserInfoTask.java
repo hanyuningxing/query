@@ -126,6 +126,7 @@ public class GrepCopyUserInfoTask {
 				int lznum = JSONObject.fromObject(filterObj).getInt("lz");
 				int allnum = JSONObject.fromObject(filterObj).getInt("allnum");
 				int hitnum = JSONObject.fromObject(filterObj).getInt("hit_week");
+				int money = JSONObject.fromObject(filterObj).getInt("itmoney");
 				boolean ishot =false;
 				if(JSONObject.fromObject(filterObj).has("ishot")){
 					ishot =JSONObject.fromObject(filterObj).getInt("ishot")==1?true:false;
@@ -136,7 +137,7 @@ public class GrepCopyUserInfoTask {
 					BigDecimal b2 = new BigDecimal(hitnum);
 					hitRate = b2.divide(b1,2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).intValue();
 				}
-				if((hitRate>80&&hitnum>4)||lznum>2||ishot){
+				if((hitRate>80&&hitnum>4)||lznum>2||ishot||money>1000){
 					saveProjectInfos(filterObj);
 					count++;
 				}
