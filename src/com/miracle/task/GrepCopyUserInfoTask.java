@@ -202,13 +202,19 @@ public class GrepCopyUserInfoTask {
 		}else{
 			proArray.add(rows.getJSONObject("row"));
 		}
-		if(proArray.size()>3){
-			return;
-		}
+		List<String> codeList = new ArrayList<String>();
 		for (Object proj : proArray) {
 			String code = JSONObject.fromObject(proj).getString("code");
-			transCodes(code,uid);
-			codes += code+";";
+			if(!codeList.contains(code)){
+				codeList.add(code);
+			}
+		}
+		if(codeList.size()>5){
+			return;
+		}
+		for (String cl : codeList) {
+			transCodes(cl,uid);
+			codes += cl+";";
 		}
 		if(codes.contains(";")){
 			codes = codes.substring(0, codes.length()-1);
