@@ -16,7 +16,7 @@ import org.htmlparser.tags.TableTag;
 import com.miracle.utils.DateUtil;
 
 public class FetchParserGH extends AbstractFetchParser {
-	private static final String URL="http://www.tao3c.com/ssq/scheme!subList.action?queryForm.sponsorName=%E5%8F%91%E8%B5%B7%E4%BA%BA%E6%98%B5%E7%A7%B0&queryForm.costType=0&queryForm.chooseType=0&menu=all&queryForm.orderType=PROCESS_RATE_DESC&queryForm.lotteryType=all&queryForm.schemeState=&pagination.pageNo=";
+	private static final String URL="http://www.ghcai.com/ssq/scheme!subList.action?queryForm.sponsorName=%E5%8F%91%E8%B5%B7%E4%BA%BA%E6%98%B5%E7%A7%B0&queryForm.costType=0&queryForm.chooseType=0&menu=all&queryForm.orderType=PROCESS_RATE_DESC&queryForm.lotteryType=all&queryForm.schemeState=&pagination.pageNo=";
 	
 	private static final String CHARSET = "GBK";
 	
